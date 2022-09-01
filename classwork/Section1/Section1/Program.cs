@@ -15,10 +15,10 @@ double distanceFromMoon;
 bool isPassing;
 //Block statemtment
 {
-    decimal payRate;
+//    decimal payRate;
 }
 {
-    decimal payRate;
+//    decimal payRate;
 }
 
 distanceFromMoon=10.5;
