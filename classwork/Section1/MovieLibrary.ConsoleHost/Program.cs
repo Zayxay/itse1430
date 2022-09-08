@@ -1,4 +1,22 @@
 ﻿//Movie defintion
+/*
+ * int32.Parse(string)--> int
+ * int32.TryParse(string)--> boolean
+ * Error checking
+ * Logical operatores
+ *  AND/OR/NOT
+ *  AND: T/T equals true T/F equals False FF equales F                                                                                                                                                                                                                                     
+ *  
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
 string title = "";
 string description = "";
 int runLength = 0; //In minutes
@@ -8,44 +26,81 @@ bool isClassic = false;
 
 AddMovie();
 
-int ReadInt32 ( string message )
+bool ReadBoolean ( string message )
 {
     Console.Write(message);
-    string value = Console.ReadLine();
 
-    //in line variable declaration
-    if (Int32.TryParse(value, out int result))
-        return result;
+    //Looking for Y/N
+    ConsoleKeyInfo key = Console.ReadKey();
+    if (key.Key == ConsoleKey.Y)
+        return true;
+    else if (key.Key == ConsoleKey.N)
+        return false;
 
-    //int result;
-    // if(Int32.TryParse(value, out result))
-    // return results;
+    //TODO:error
+    return false;
+}
 
-    return -1;
+int ReadInt32 ( string message, int minimumValue, int maximumValue )
+{
+    Console.Write(message); //prompts the user
+
+    do
+    {
+        string value = Console.ReadLine(); //reads the users input and store it into value
+
+        //in line variable declaration
+        if (Int32.TryParse(value, out int result))
+        {
+            if (result >= minimumValue && result <= maximumValue)
+                return result;
+        };
+        //int result;
+        // if(Int32.TryParse(value, out result))
+
+        Console.WriteLine("value must be between " + minimumValue + " and " + maximumValue);
+
+    } while (true);
+    
 }
 
 
-string ReadString ( string message )
+string ReadString ( string message, bool required )
 {
     Console.Write(message);
-    string value = Console.ReadLine();
-    return value;
+
+    while (true)
+    {
+
+
+        string value = Console.ReadLine();
+
+        // check if required
+        if (value != "" || !required)
+            return value;
+
+        //value is not empty 
+        //value is empty and required
+        Console.WriteLine("Value is required");
+
+    };
 }
 
-void AddMovie (  )
+void AddMovie ()
 {
     //string title
-    title = ReadString("Enter a title: ");
+    title = ReadString("Enter a title: ", true);
+
+    description=ReadString("Enter a optional description: ", false);
+
+    runLength = ReadInt32("Enter a run length (in minutes): ", 0 , 300);
+
+    releaseYear = ReadInt32("Enter the release year: ", 1900 , 2100);
+
+    rating = ReadString("Enter MPAA rating: ", true);
+
+    isClassic = ReadBoolean("is this a classic? ");
 
 
-    description=ReadString("Enter a optional description: ");
-
-
-    runLength = ReadInt32("Enter a run length (in minutes): ");
-
-
-    releaseYear = ReadInt32("Enter the release year: ");
-    rating = ReadString("Enter MPAA rating: ");
-
-    Console.WriteLine("Is this a classic? ");
 }
+
