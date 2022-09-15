@@ -33,16 +33,17 @@ DisplayInformation();
 bool done = false;
 do
 {
-    MenuOption input = DisplayMenu();
+    //MenuOption input = DisplayMenu();
+    var input = DisplayMenu();
     Console.WriteLine();
     switch (input)
     {
-        
+
         case MenuOption.Add: AddMovie(); break;
         case MenuOption.Edit: EditMovie(); break;
-        case MenuOption.View:  break;
+        case MenuOption.View: break;
         case MenuOption.Delete: break;
-        case MenuOption.Quit: done = true;  break;
+        case MenuOption.Quit: done = true; break;
     }
     //if (input == 'A')
     //    AddMovie();
@@ -70,6 +71,8 @@ void DisplayInformation ()
 MenuOption DisplayMenu ()
 {
     Console.WriteLine();
+    Console.WriteLine("---------");
+    Console.WriteLine("".PadLeft(10, '-'));
     Console.WriteLine("A)dd Movie");
     Console.WriteLine("E)dit Movie");
     Console.WriteLine("V)iew Movie");
@@ -130,7 +133,8 @@ int ReadInt32 ( string message, int minimumValue, int maximumValue )
 
         //in line variable declaration
 
-        if (Int32.TryParse(value, out int result))
+        //if (Int32.TryParse(value, out int result))
+        if (Int32.TryParse(value, out var result))
         {
             if (result >= minimumValue && result <= maximumValue)
                 return result;
@@ -199,23 +203,38 @@ void DeleteMovie ()
         return;
     //TODO: Delete Movie
     title = "";
-    
+
 
 }
 
 void ViewMovie ()
 {
-    if(title == "")
+    if (title == "")
     {
         Console.WriteLine("No movies available");
         return;
     }
-    Console.WriteLine(title);
-    Console.WriteLine(releaseYear);
-    Console.WriteLine("Length:" + runLength + "mins");
-    Console.WriteLine("MPAA Rating: " + rating);
-    Console.WriteLine("Classic: "+ isClassic);
+
+    Console.WriteLine($"{title} ({releaseYear})");
+    //String formating concatination
+    //Opton 1 - Concatination
+    //Console.WriteLine("Length:" + runLength + "mins");
+
+
+    //option 2 -String.Format
+    //Console.WriteLine("Length:" + runLength + "mins");
+    //Console.WriteLine(String.Format("Length: {0} mins", runLength));
+    Console.WriteLine("Length: {0} mins", runLength);
+
+    //Optio 3 - String Interpulation
+    Console.WriteLine($"Length: {runLength} mins");
+    //Console.WriteLine(releaseYear);
+    //ToString
+    Console.WriteLine(releaseYear.ToString());
+    //Console.WriteLine("Length:" + runLength + "mins");
+    Console.WriteLine($"Ratied {rating}");
+    Console.WriteLine($" Is Classic: {(isClassic ? "Yes" : "No")}");
     Console.WriteLine(description);
-    
+
 }
 
