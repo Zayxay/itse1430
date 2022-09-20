@@ -1,8 +1,8 @@
-﻿
+﻿decimal cartValue = 0m;
 
-// ConsoleKeyInfo -here we have the keyword for using console key. it tells the compiler what type of value the identifier will hold
-// ConsoleKeyInfo key = Console.ReadKey() - The console read key function tells the compiler we are looking for the user to return us a key
-//Use readkey to read sensitive data like passwords. 
+
+
+
 
 
 
@@ -18,9 +18,20 @@
     Console.WriteLine("09/15/2022");
 }
 
-void DisplayMenu ()
+ MenuOption DisplayMenu ()
 {
+    Console.WriteLine($"CART: {cartValue}" ); //TODO
     Console.WriteLine("Q)uit");
+
+    do
+    {
+        ConsoleKeyInfo key =Console.ReadKey (true);
+        switch(key.Key)
+        {
+            case ConsoleKey.Q: return MenuOption.Quit;
+        }
+
+    }while(true);
 }
 
 
