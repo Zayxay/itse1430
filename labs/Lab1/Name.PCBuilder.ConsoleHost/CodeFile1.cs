@@ -1,7 +1,7 @@
 ﻿enum MenuOption
 {
     View = 1,
-    Add,
+    NewOrder,
     Edit,
     Delete,
     Quit,
