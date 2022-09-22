@@ -178,8 +178,8 @@ Movie AddMovie ()
 {
     Movie movie = new Movie ();
     //string title
-    movie.title = ReadString("Enter a title: ", true);
-    
+    //movie.title = ReadString("Enter a title: ", true);
+    movie.SetTitle(ReadString("Enter a title: ", true));
     movie._description=ReadString("Enter a optional description: ", false);
     
     movie._runLength = ReadInt32("Enter a run length (in minutes): ", 0, 300);
@@ -209,7 +209,7 @@ void DeleteMovie ()
     if (selectedMovie==null)
         return;
     //Not cconfirmed
-    if (!ReadBoolean($"Are you sure you want to delete the movie '{selectedMovie.title}' (Y/N)? "))
+    if (!ReadBoolean($"Are you sure you want to delete the movie '{selectedMovie.GetTitle()}' (Y/N)? "))
         return;
     //TODO: Delete Movie
     movie=null ;
@@ -225,7 +225,7 @@ void ViewMovie (Movie movie)
         return;
     }
 
-    Console.WriteLine($"{movie.title} ({movie._releaseYear})");
+    Console.WriteLine($"{movie.GetTitle} ({movie._releaseYear})");
     //String formating concatination
     //Opton 1 - Concatination
     //Console.WriteLine("Length:" + runLength + "mins");

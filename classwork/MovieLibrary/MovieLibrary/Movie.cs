@@ -15,13 +15,18 @@
         public void SetTitle ( string title )
         {
             //this.title = title;
-            title=title;
+            _title=title;
         }
         public  string _description = "";
       public  int _runLength = 0; //In minutes
       public  int _releaseYear = 1900;
       public  string _rating = "";
       public  bool _isClassic = false;
+
+        public bool IsBlackAndWhite ()
+        {
+            return _releaseYear < 1939;
+        }
         /// <summary>
         /// Clones the existing movie
         /// </summary>
