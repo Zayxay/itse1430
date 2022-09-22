@@ -7,7 +7,7 @@ namespace ShopDemo
         static void Main ( string[] args )
         {
             Shop myShop = new Shop();
-            myShop.Run();
+            myShop.Start();
         }
     }
 }
