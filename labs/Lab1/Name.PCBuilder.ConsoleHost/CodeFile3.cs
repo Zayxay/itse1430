@@ -1,8 +1,4 @@
-﻿//Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \nYou have ordered a {_memName:C2} for {_memPrice:C2} ");
-//Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \nYou have ordered a {_memName:C2} for {_memPrice:C2} ");
-//Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \nYou have ordered a {_memName:C2} for {_memPrice:C2} ");
-//Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \nYou have ordered a {_memName:C2} for {_memPrice:C2} ");
-//Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \nYou have ordered a {_memName:C2} for {_memPrice:C2} ");
+﻿
 using System;
 class Shop
 {
@@ -17,6 +13,8 @@ class Shop
     private decimal _secondaryStoragePrice;
     private string _graphicsName;
     private decimal _graphicsPrice;
+    private string _operatingName;
+    private decimal _operatingPrice;
 
     public Shop ()
     {
@@ -31,6 +29,8 @@ class Shop
         _secondaryStoragePrice=0m;
         _graphicsName="";
         _graphicsPrice=0;
+        _operatingName="";
+        _operatingPrice=0;
 
     }
 
@@ -42,11 +42,11 @@ class Shop
     private void Run ()
     {
         Console.Clear();
-        //if(_memName != "")
-        //{
-        //    Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \nYou have ordered a {_memName:C2} for {_memPrice:C2} ");
-        //    DisplayMenu();
-        //}
+        if(_operatingName != "")
+        {
+            Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \n You have ordered a {_memName:C2} for {_memPrice:C2}\n You have ordered a {_primaryStorage} for {_primaryStoragePrice:C2}\nYou have ordered a {_secondaryStorage} for {_secondaryStoragePrice:C2}\nYou have ordered a {_graphicsName} for {_graphicsPrice:C2}\nYou have ordered {_operatingName} for {_operatingPrice:C2} ");
+            DisplayMenu();
+        }
         Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
         Console.WriteLine("====================================");
         BuyProcessor();
@@ -86,9 +86,9 @@ class Shop
             switch (myOptions)
             {
                 case 1: Run(); break;
-                case 2: ViewOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage ,_primaryStoragePrice,_secondaryStorage,_secondaryStoragePrice,_graphicsName,_graphicsPrice, _orderTotal); break;
-                case 3: ClearOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 4: ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
+                case 2: ViewOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage ,_primaryStoragePrice,_secondaryStorage,_secondaryStoragePrice,_graphicsName,_graphicsPrice,       _operatingName, _operatingPrice, _orderTotal); break;
+                case 3: ClearOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice,  _operatingName, _operatingPrice, _orderTotal); break;
+                case 4: ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
                 case 5: DisplayOutro(); break;
                 default: Error(); break;
             }
@@ -236,11 +236,11 @@ class Shop
         {
             switch (response)
             {
-                case 1: _graphicsName="no graphics";  _graphicsPrice=0; _orderTotal= _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice;   DisplayMenu();  break;
-                case 2: _graphicsName="GeForce RTX 3070"; _graphicsPrice=580; _orderTotal=_memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice;    DisplayMenu();  break;
-                case 3: _graphicsName="GeForce RTX 2070"; _graphicsPrice=400; _orderTotal=_memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice;    DisplayMenu();  break;
-                case 4: _graphicsName="Radeon RX 6600"; _graphicsPrice=300; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; DisplayMenu();  break;
-                case 5: _graphicsName="Radeon RX 5600 "; _graphicsPrice=325; _orderTotal=_memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice;   DisplayMenu();  break;
+                case 1: _graphicsName="no graphics";  _graphicsPrice=0; _orderTotal= _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice;   BuyOperating();  break;
+                case 2: _graphicsName="GeForce RTX 3070"; _graphicsPrice=580; _orderTotal=_memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; BuyOperating(); break;
+                case 3: _graphicsName="GeForce RTX 2070"; _graphicsPrice=400; _orderTotal=_memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; BuyOperating(); break;
+                case 4: _graphicsName="Radeon RX 6600"; _graphicsPrice=300; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; BuyOperating(); break;
+                case 5: _graphicsName="Radeon RX 5600 "; _graphicsPrice=325; _orderTotal=_memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; BuyOperating(); break;
 
             }
         } else
@@ -252,12 +252,35 @@ class Shop
 
     private void BuyOperating ()
     {
+        Console.Clear();
+        Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
+        Console.WriteLine();
+        Console.WriteLine("Press 1) To buy Windows 11 Home for $140");
+        Console.WriteLine("Press 2) To buy Windows 11 Pro for $160");
+        Console.WriteLine("Press 3) To buy Windows 10 Home for $150");
+        Console.WriteLine("Press 4) To buy  Windows 10 Pro $170");
+        Console.WriteLine("Press 5) To buy Linux (Fedora) for $20");
+        Console.WriteLine("Press 6) To buy Linux (Red Hat) for $60");
+        int response = Int32.Parse(Console.ReadLine());
+        if (response <= 6)
+        {
+            switch (response)
+            {
+                case 1: _operatingName=" Windows 11 Home"; _operatingPrice=140; _orderTotal= _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \n You have ordered a {_memName:C2} for {_memPrice:C2}\n You have ordered a {_primaryStorage} for {_primaryStoragePrice:C2}\nYou have ordered a {_secondaryStorage} for {_secondaryStoragePrice:C2}\nYou have ordered a {_graphicsName} for {_graphicsPrice:C2}\nYou have ordered {_operatingName} for {_operatingPrice:C2} "); DisplayMenu(); break;
+                case 2: _operatingName="Windows 11 Pro"; _operatingPrice=160; _orderTotal=_memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \n You have ordered a {_memName:C2} for {_memPrice:C2}\n You have ordered a {_primaryStorage} for {_primaryStoragePrice:C2}\nYou have ordered a {_secondaryStorage} for {_secondaryStoragePrice:C2}\nYou have ordered a {_graphicsName} for {_graphicsPrice:C2}\nYou have ordered {_operatingName} for {_operatingPrice:C2} "); DisplayMenu(); break;
+                case 3: _operatingName=" Windows 10 Home"; _operatingPrice=150; _orderTotal=_memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \n You have ordered a {_memName:C2} for {_memPrice:C2}\n You have ordered a {_primaryStorage} for {_primaryStoragePrice:C2}\nYou have ordered a {_secondaryStorage} for {_secondaryStoragePrice:C2}\nYou have ordered a {_graphicsName} for {_graphicsPrice:C2}\nYou have ordered {_operatingName} for {_operatingPrice:C2} "); DisplayMenu(); break;
+                case 4: _operatingName="Windows 10 Pro"; _operatingPrice=170; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \n You have ordered a {_memName:C2} for {_memPrice:C2}\n You have ordered a {_primaryStorage} for {_primaryStoragePrice:C2}\nYou have ordered a {_secondaryStorage} for {_secondaryStoragePrice:C2}\nYou have ordered a {_graphicsName} for {_graphicsPrice:C2}\nYou have ordered {_operatingName} for {_operatingPrice:C2} "); DisplayMenu(); break;
+                case 5: _operatingName="Linux (Fedora) "; _operatingPrice=20; _orderTotal=_memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \n You have ordered a {_memName:C2} for {_memPrice:C2}\n You have ordered a {_primaryStorage} for {_primaryStoragePrice:C2}\nYou have ordered a {_secondaryStorage} for {_secondaryStoragePrice:C2}\nYou have ordered a {_graphicsName} for {_graphicsPrice:C2}\nYou have ordered {_operatingName} for {_operatingPrice:C2} "); DisplayMenu(); break;
+                case 6: _operatingName="Linux (Red Hat) "; _operatingPrice=60; _orderTotal=_memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \n You have ordered a {_memName:C2} for {_memPrice:C2}\n You have ordered a {_primaryStorage} for {_primaryStoragePrice:C2}\nYou have ordered a {_secondaryStorage} for {_secondaryStoragePrice:C2}\nYou have ordered a {_graphicsName} for {_graphicsPrice:C2}\nYou have ordered {_operatingName} for {_operatingPrice:C2} "); DisplayMenu(); break;
 
+            }
+        } else
+        {
+
+            Error();
+        }
     }
-    private void DisplayOrderTotal ()
-    {
-        Console.WriteLine($"Your current order total is: {_orderTotal:C2}. ");
-    }
+   
 
     private void DisplayOutro ()
     {
@@ -276,7 +299,7 @@ class Shop
 
     }
 
-    private void ViewOrder ( string itemName, decimal icost, string memoryName, decimal memoryCost, string primaryStorageTitle, decimal primaryStorageCost, string secondaryStorageTitle, decimal secondaryStorageCost, string graphicsTitle, decimal graphicsCost, decimal cart)
+    private void ViewOrder ( string itemName, decimal icost, string memoryName, decimal memoryCost, string primaryStorageTitle, decimal primaryStorageCost, string secondaryStorageTitle, decimal secondaryStorageCost, string graphicsTitle, decimal graphicsCost,string operatorTitle, decimal operatorCost, decimal cart)
     {
         Console.Clear();
         Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
@@ -292,6 +315,7 @@ class Shop
             Console.WriteLine($"Primary Storage: {primaryStorageTitle}       {primaryStorageCost:C2}");
             Console.WriteLine($"Secondary Storage: {secondaryStorageTitle}   {secondaryStorageCost:C2}");
             Console.WriteLine($"Graphics card: {graphicsTitle}    {graphicsCost:C2}");
+            Console.WriteLine($"Operating System: {operatorTitle}  {operatorCost:C2}");
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine($"Total:                   {cart:C2}");
         }
@@ -309,7 +333,7 @@ class Shop
 
     }
 
-    private void ClearOrder ( string itemName, decimal icost, string memoryName, decimal memoryCost, string primaryStorageTitle, decimal primaryStorageCost, string secondaryStorageTitle, decimal secondaryStorageCost, string graphicsTitle, decimal graphicsCost, decimal cart )
+    private void ClearOrder ( string itemName, decimal icost, string memoryName, decimal memoryCost, string primaryStorageTitle, decimal primaryStorageCost, string secondaryStorageTitle, decimal secondaryStorageCost, string graphicsTitle, decimal graphicsCost, string operatorTitle, decimal operatorCost, decimal cart )
     {
         Console.Clear();
         Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
@@ -330,6 +354,8 @@ class Shop
             _secondaryStoragePrice=0m;
             _graphicsName="";
             _graphicsPrice=0m;
+            _operatingName="";
+            _operatingPrice=0;
             DisplayMenu();
         } else if (response.StartsWith("N"))
         {
@@ -337,18 +363,19 @@ class Shop
         } else
         {
             Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
-            ClearOrder(itemName, icost, memoryName, memoryCost, primaryStorageTitle, primaryStorageCost,secondaryStorageTitle, secondaryStorageCost,graphicsTitle,graphicsCost, cart);
+            ClearOrder(itemName, icost, memoryName, memoryCost, primaryStorageTitle, primaryStorageCost,secondaryStorageTitle, secondaryStorageCost,graphicsTitle,graphicsCost,operatorTitle,operatorCost, cart);
 
         }
 
 
     }
 
-    private void ModifyOrder ( string itemName, decimal icost, string memoryName, decimal memoryCost, string processorTitle, decimal processorCost, string secondaryStorageTitle, decimal secondaryStorageCost, string graphicsTitle, decimal graphicsCost, decimal cart )
+    private void ModifyOrder ( string itemName, decimal icost, string memoryName, decimal memoryCost, string processorTitle, decimal processorCost, string secondaryStorageTitle, decimal secondaryStorageCost, string graphicsTitle, decimal graphicsCost, string operatorTitle, decimal operatorCost, decimal cart )
     {
         Console.Clear();
         Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
         Console.WriteLine();
+        Console.WriteLine("There is no order to modify");
         if (itemName == "")
         {
             
@@ -362,12 +389,14 @@ class Shop
             Console.WriteLine($"{processorTitle} for {processorCost:C2}");
             Console.WriteLine($"{secondaryStorageTitle} for {secondaryStorageCost:C2}");
             Console.WriteLine($"{graphicsTitle} for {graphicsCost:C2}");
+            Console.WriteLine($"{operatorTitle}  for {operatorCost:C2}");
             Console.WriteLine("==============");
             Console.WriteLine("Press 1)  If you would like to modify your processor");
             Console.WriteLine("Press 2)  If you would like to modify your memory");
             Console.WriteLine("Press 3) If you would like to modify your primary storage");
             Console.WriteLine("Press 4) If you would like to modify your secondary storage");
             Console.WriteLine("Press 5) If you would like to modify your graphics card");
+            Console.WriteLine("Press 6) If you would like to modify your operating system");
             Console.WriteLine("Press 7) To return back to the menu");
             int response = Int32.Parse(Console.ReadLine());
             switch (response)
@@ -377,6 +406,7 @@ class Shop
                 case 3: ModifyPrimaryStorage(); break;
                 case 4:ModifySecondaryStorage(); break;
                 case 5: ModifyGraphics(); break;
+                case 6: ModifyOperator(); break;
                 case 7:  DisplayMenu(); break;
 
             }
@@ -404,12 +434,12 @@ class Shop
         {
             switch (response)
             {
-                case 1: _processorName="AMD Ryzen 9 5900X"; _processorPrice=1410; _orderTotal=_processorPrice + _memPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 2: _processorName="AMD Ryzen 7 5700X"; _processorPrice=1270; _orderTotal=_processorPrice + _memPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 3: _processorName="AMD Ryzen 5 5600X"; _processorPrice=1200; _orderTotal=_processorPrice + _memPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 4: _processorName="Intel i9-12900K"; _processorPrice=1590; _orderTotal=_processorPrice + _memPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ;   ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal);  break;
-                case 5: _processorName="Intel i7-12700K"; _processorPrice=1400; _orderTotal=_processorPrice + _memPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ;   ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 6: _processorName="Intel i5-12600K"; _processorPrice=1200; _orderTotal=_processorPrice + _memPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ;   ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
+                case 1: _processorName="AMD Ryzen 9 5900X"; _processorPrice=1410; _orderTotal=_processorPrice + _memPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 2: _processorName="AMD Ryzen 7 5700X"; _processorPrice=1270; _orderTotal=_processorPrice + _memPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 3: _processorName="AMD Ryzen 5 5600X"; _processorPrice=1200; _orderTotal=_processorPrice + _memPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 4: _processorName="Intel i9-12900K"; _processorPrice=1590; _orderTotal=_processorPrice + _memPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ;   ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal);  break;
+                case 5: _processorName="Intel i7-12700K"; _processorPrice=1400; _orderTotal=_processorPrice + _memPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ;   ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 6: _processorName="Intel i5-12600K"; _processorPrice=1200; _orderTotal=_processorPrice + _memPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ;   ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
                 case 7: DisplayMenu(); break;
                 default: Error(); break;
             }
@@ -438,11 +468,11 @@ class Shop
             
             switch (response)
             {
-                case 1: _memName="8 GB"; _memPrice=30; _orderTotal= _memPrice + _processorPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice,    _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 2: _memName="16 GB"; _memPrice=40; _orderTotal=_memPrice + _processorPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice,    _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 3: _memName="32 GB"; _memPrice=90; _orderTotal=_memPrice + _processorPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice,    _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 4: _memName="64 GB"; _memPrice=410; _orderTotal = _memPrice + _processorPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 5: _memName="128 GB"; _memPrice=600; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice,  _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
+                case 1: _memName="8 GB"; _memPrice=30; _orderTotal= _memPrice + _processorPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice,    _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 2: _memName="16 GB"; _memPrice=40; _orderTotal=_memPrice + _processorPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice,    _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 3: _memName="32 GB"; _memPrice=90; _orderTotal=_memPrice + _processorPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice,    _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 4: _memName="64 GB"; _memPrice=410; _orderTotal = _memPrice + _processorPrice +_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 5: _memName="128 GB"; _memPrice=600; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice,  _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
                 case 6: DisplayMenu(); break;
                
 
@@ -470,10 +500,10 @@ class Shop
         {
             switch (response)
             {
-                case 1: _primaryStorage="SSD 356 GB"; _primaryStoragePrice=90; _orderTotal= _memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 2: _primaryStorage="SSD 512 GB"; _primaryStoragePrice=100; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 3: _primaryStorage="SSD 1 TB"; _primaryStoragePrice=125; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ;   ModifyOrder(_processorName, _processorPrice, _memName, _memPrice,   _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 4: _primaryStorage="SSD 2 TB"; _primaryStoragePrice=230; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ;  ModifyOrder(_processorName, _processorPrice, _memName, _memPrice,  _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
+                case 1: _primaryStorage="SSD 356 GB"; _primaryStoragePrice=90; _orderTotal= _memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 2: _primaryStorage="SSD 512 GB"; _primaryStoragePrice=100; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 3: _primaryStorage="SSD 1 TB"; _primaryStoragePrice=125; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ;   ModifyOrder(_processorName, _processorPrice, _memName, _memPrice,   _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 4: _primaryStorage="SSD 2 TB"; _primaryStoragePrice=230; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ;  ModifyOrder(_processorName, _processorPrice, _memName, _memPrice,  _primaryStorage,_primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
                 case 5: DisplayMenu(); break;
 
 
@@ -504,13 +534,13 @@ class Shop
         {
             switch (response)
             {  
-                case 1: _secondaryStorage="No secodary storage"; _secondaryStoragePrice=0; _orderTotal= _memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 2: _secondaryStorage=" HDD 1 TB"; _secondaryStoragePrice=40; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 3: _secondaryStorage="HDD 2 TB"; _secondaryStoragePrice=50; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 4: _secondaryStorage="HDD 4 TB"; _secondaryStoragePrice=70; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 5: _secondaryStorage="SSD 512 GB"; _secondaryStoragePrice=100; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 6: _secondaryStorage="SSD 1 TB"; _secondaryStoragePrice=125; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal);  break;
-                case 7: _secondaryStorage="SSD 2 TB"; _secondaryStoragePrice=230; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal);  break;
+                case 1: _secondaryStorage="No secodary storage"; _secondaryStoragePrice=0; _orderTotal= _memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 2: _secondaryStorage=" HDD 1 TB"; _secondaryStoragePrice=40; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 3: _secondaryStorage="HDD 2 TB"; _secondaryStoragePrice=50; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 4: _secondaryStorage="HDD 4 TB"; _secondaryStoragePrice=70; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 5: _secondaryStorage="SSD 512 GB"; _secondaryStoragePrice=100; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 6: _secondaryStorage="SSD 1 TB"; _secondaryStoragePrice=125; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal);  break;
+                case 7: _secondaryStorage="SSD 2 TB"; _secondaryStoragePrice=230; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal);  break;
                 case 8: DisplayMenu(); break;
             }
         } else
@@ -537,12 +567,12 @@ class Shop
         {
             switch (response)
             {
-                case 1: _graphicsName="No graphics card"; _graphicsPrice=0; _orderTotal= _memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 2: _graphicsName="GeForce RTX 3070"; _graphicsPrice=580; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 3: _graphicsName="GeForce RTX 2070"; _graphicsPrice=400; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 4: _graphicsName=" Radeon RX 6600";  _graphicsPrice=300; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 5: _graphicsName="Radeon RX 5600";   _graphicsPrice=325; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _orderTotal); break;
-                case 8: DisplayMenu(); break;
+                case 1: _graphicsName="No graphics card"; _graphicsPrice=0; _orderTotal= _memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 2: _graphicsName="GeForce RTX 3070"; _graphicsPrice=580; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 3: _graphicsName="GeForce RTX 2070"; _graphicsPrice=400; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 4: _graphicsName=" Radeon RX 6600";  _graphicsPrice=300; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 5: _graphicsName="Radeon RX 5600";   _graphicsPrice=325; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 6: DisplayMenu(); break;
             }
         } else
         {
@@ -551,7 +581,38 @@ class Shop
         }
     }
 
+    private void ModifyOperator ()
+    {
+        Console.Clear();
+        Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
+        Console.WriteLine();
+        Console.WriteLine("Press 1) To buy Windows 11 Home for $140");
+        Console.WriteLine("Press 2) To buy Windows 11 Pro for $160");
+        Console.WriteLine("Press 3) To buy Windows 10 Home for $150");
+        Console.WriteLine("Press 4) To buy  Windows 10 Pro $170");
+        Console.WriteLine("Press 5) To buy Linux (Fedora) for $20");
+        Console.WriteLine("Press 6) To buy Linux (Red Hat) for $60");
+        Console.WriteLine("Press 7) To return back to the menu");
 
+        int response = Int32.Parse(Console.ReadLine());
+        if (response <= 7)
+        {
+            switch (response)
+            {
+                case 1: _operatingName="Windows 11 Home"; _operatingPrice=140; _orderTotal= _memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 2: _operatingName="Windows 11 Pro"; _operatingPrice=160; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 3: _operatingName="Windows 10 Home"; _operatingPrice=150; _orderTotal=_memPrice + _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 4: _operatingName=" Windows 10 Pro";  _operatingPrice=170; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 5: _operatingName="Linux (Fedora)"; _operatingPrice=20; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 6: _operatingName="Linux (Red Hat)"; _operatingPrice=60; _orderTotal = _memPrice+ _processorPrice+_primaryStoragePrice+_secondaryStoragePrice+_graphicsPrice+_operatingPrice; ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 7: DisplayMenu(); break;
+            }
+        } else
+        {
+
+            Error();
+        }
+    }
     private void Error ()
     {
         Console.Clear();
