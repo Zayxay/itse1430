@@ -1,284 +1,374 @@
-﻿//decimal cartValue = 0m;
-//string str = "";
-//string pad = str.PadLeft(10, '-');
-//Console.Title = "PC Builder";
-
-
-////Calling
-//DisplayInformation();
-//var done = false;
-
-//do
+﻿//using System;
+//class Shop
 //{
-//    var input = DisplayMenu();
-//    switch (input)
+//    private decimal _orderTotal;
+//    private string _processorName;
+//    private decimal _processorPrice;
+//    private string _memName;
+//    private decimal _memPrice;
+
+//    public Shop ()
 //    {
-//        case MenuOption.NewOrder: NewOrder(); break;
-//        case MenuOption.Quit: done= true; break;
-//    };
+//        _orderTotal = 0m;
+//        _processorName="";
+//        _processorPrice = 0m;
+//        _memName="";
+//        _memPrice = 0m;
+//    }
 
-
-//} while (!done);
-
-
-
-////Functions
-
-//void DisplayInformation ()
-//{
-//    Console.WriteLine("David-Isaiah Ngouambeu");
-//    Console.WriteLine("ITSE 1430");
-//    Console.WriteLine("09/15/2022");
-//    Console.WriteLine(pad);
-
-//}
-
-//MenuOption DisplayMenu ()
-//{
-//    Console.WriteLine($"CART: {cartValue} "); //TODO
-//    Console.WriteLine("N)ew Order");
-//    Console.WriteLine("Q)uit");
-//    Console.WriteLine(pad);
-
-//    do
+//    public void Start ()
 //    {
-//        ConsoleKeyInfo key = Console.ReadKey(true);
-//        switch (key.Key)
+//        DisplayInfo();
+//        DisplayMenu();
+//    }
+//    private void Run ()
+//    {
+
+//        Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
+
+//        SellItem("AMD Ryzen 9 5900X", 1410m);
+//        DisplayOutro();
+//    }
+
+//    private void DisplayInfo ()
+//    {
+//        Console.WriteLine("David-Isaiah Ngouambeu");
+//        Console.WriteLine("ITSE 1430");
+//        Console.WriteLine("09/15/2022");
+//        Console.WriteLine("==========");
+//    }
+
+//    private void DisplayMenu ()
+//    {
+//        Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
+//        Console.WriteLine("Option 1. New Order");
+//        Console.WriteLine("Option 2. View Order");
+//        Console.WriteLine("Option 3. Quit");
+
+
+//        try
 //        {
-//            case ConsoleKey.N: return MenuOption.NewOrder;
-//            case ConsoleKey.Q: return MenuOption.Quit;
-//        };
+//            int myOptions;
+//            myOptions = Int32.Parse(Console.ReadLine());
 
-//    } while (true);
-//}
-
-//void NewOrder ()
-//{
-//    Console.WriteLine("CART: " + cartValue);
-//    Console.WriteLine("");
-//    Console.WriteLine($"Choose A Processor ");
-//    Console.WriteLine($"1) AMD Ryzen 9 5900X ---- $1410");
-//    Console.WriteLine($"2) AMD Ryzen 7 5700Xd ---- $1270");
-//    Console.WriteLine($"3) AMD Ryzen 5 5600Xd ---- $1200");
-//    Console.WriteLine($"4) Intel i9-12900K ----- $1590");
-//    Console.WriteLine($"5) Intel i7-12700K ---- $1400");
-//    Console.WriteLine($"6) Intel i5-12600K ---- $1280");
-//    Console.WriteLine($"{pad}");
-//    int option = int.Parse(Console.ReadLine());
-
-//    do
-//    {
-//        switch (option)
-//        {
-//            case 1: FirstProcessor(); break;
-//            case 2: SecondProcessor(); break;
-//            case 3: ThirdProcessor(); break;
-//            case 4: FourthProcessor(); break;
-//            case 5: FifthProcessor(); break;
-//            case 6: SixthProcessor(); break;
-//            default:
+//            switch (myOptions)
 //            {
-//                Console.WriteLine("Invalid entry. Please re enter choice");
-//                Console.Clear();
-//                DisplayMenu();
-//                break;
+//                case 1: _processorName="hello"; Run(); break;
+//                case 2: ViewOrder(_processorName, _processorPrice, _memName, _memPrice, _orderTotal); break;
+//                case 3: DisplayOutro(); break;
+//                default: Error(); break;
 //            }
+//        } catch (FormatException)
+//        {
+//            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+//            DisplayMenu();
+//        }
+//    }
+//    private void SellItem ( string itemName, decimal icost )
+//    {
+//        Console.WriteLine($"Would you like to buy {itemName} for {icost:C2}? (y/n)");
+
+//        string response = Console.ReadLine().ToUpper();
+
+//        if (response.StartsWith("Y"))
+//        {
+//            _processorName = itemName;
+//            _processorPrice=icost;
+//            _orderTotal += icost;
+//            SellMemory("8GB", 30m, _orderTotal);
+
+//        } else if (response.StartsWith("N"))
+//        {
+//            SellItem1("AMD Ryzen 7 5700Xd", 1270m);
+//        } else
+//        {
+//            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+//            SellItem(itemName, icost);
+
 
 //        }
-//    } while (!true);
-
-
-
-
-//}
-
-//void FirstProcessor ()
-//{
-//    Console.Clear();
-//    Console.WriteLine("Cart: " + (cartValue + 1400));
-//    Console.WriteLine(pad);
-//    Console.WriteLine("CHOOSE MEMORY");
-//    Console.WriteLine(pad);
-//    Console.WriteLine($"1) 8 GB --- $30 ");
-//    Console.WriteLine($"2) 16 GB ---- $40");
-//    Console.WriteLine($"3) 32 GB ---- $90");
-//    Console.WriteLine($"4) 64 GB ---- $410");
-//    Console.WriteLine($"5) 128 GB  ---- $600");
-
-
-//}
-
-//void SecondProcessor ()
-//{
-//    Console.WriteLine("Cart: " + (cartValue + 1270));
-
-//    Console.WriteLine(pad);
-
-//    Console.WriteLine("CHOOSE MEMORY");
-//    Console.WriteLine(pad);
-//    Console.WriteLine($"1) 8 GB --- $30 ");
-//    Console.WriteLine($"2) 16 GB ---- $40");
-//    Console.WriteLine($"3) 32 GB ---- $90");
-//    Console.WriteLine($"4) 64 GB ---- $410");
-//    Console.WriteLine($"5) 128 GB  ---- $600");
-//}
-
-//void ThirdProcessor ()
-//{
-//    Console.WriteLine("Cart: " + (cartValue + 1200));
-//    Console.WriteLine("CHOOSE MEMORY");
-//    Console.WriteLine(pad);
-//    Console.WriteLine($"1) 8 GB --- $30 ");
-//    Console.WriteLine($"2) 16 GB ---- $40");
-//    Console.WriteLine($"3) 32 GB ---- $90");
-//    Console.WriteLine($"4) 64 GB ---- $410");
-//    Console.WriteLine($"5) 128 GB  ---- $600");
-//}
-
-//void FourthProcessor ()
-//{
-//    Console.WriteLine("Cart: " + (cartValue + 1590));
-
-
-//    Console.WriteLine(pad);
-//    Console.WriteLine("CHOOSE MEMORY");
-//    Console.WriteLine(pad);
-//    Console.WriteLine($"1) 8 GB --- $30 ");
-//    Console.WriteLine($"2) 16 GB ---- $40");
-//    Console.WriteLine($"3) 32 GB ---- $90");
-//    Console.WriteLine($"4) 64 GB ---- $410");
-//    Console.WriteLine($"5) 128 GB  ---- $600");
-//}
-
-//void FifthProcessor ()
-//{
-//    Console.WriteLine("Cart: " + (cartValue + 1400));
-
-
-//    Console.WriteLine(pad);
-//    Console.WriteLine("CHOOSE MEMORY");
-//    Console.WriteLine(pad);
-//    Console.WriteLine($"1) 8 GB --- $30 ");
-//    Console.WriteLine($"2) 16 GB ---- $40");
-//    Console.WriteLine($"3) 32 GB ---- $90");
-//    Console.WriteLine($"4) 64 GB ---- $410");
-//    Console.WriteLine($"5) 128 GB  ---- $600");
-//}
-
-//void SixthProcessor ()
-//{
-//    Console.WriteLine("Cart: " + (cartValue + 1280));
-
-//    Console.WriteLine("");
-
-//    Console.WriteLine("CHOOSE MEMORY");
-//    Console.WriteLine(pad);
-//    Console.WriteLine($"1) 8 GB --- $30 ");
-//    Console.WriteLine($"2) 16 GB ---- $40");
-//    Console.WriteLine($"3) 32 GB ---- $90");
-//    Console.WriteLine($"4) 64 GB ---- $410");
-//    Console.WriteLine($"5) 128 GB  ---- $600");
-//}
-
-//decimal cartValue = 0m;
-//string str = "";
-//string pad = str.PadLeft(10, '-');
-//Console.Title = "PC Builder";
-
-////Calling
-//DisplayInformation();
-//MenuDisplay();
-////functions
-
-//void DisplayInformation ()
-//{
-//    Console.WriteLine("David-Isaiah Ngouambeu");
-//    Console.WriteLine("ITSE 1430");
-//    Console.WriteLine("09/15/2022");
-//    Console.WriteLine(pad);
-
-//}
-
-//void MenuDisplay ()
-//{
-//    //Console.Clear();
-//    Console.WriteLine($"CART: {cartValue}");
-//    Console.WriteLine(pad);
-//    Console.WriteLine("PLEASE TYPE AN OPTION NUMBER");
-//    Console.WriteLine("");
-//    Console.WriteLine("Option 1. New Order");
-//    Console.WriteLine("Option 2. Quit");
-
-//    int myOptions;
-//    myOptions = Int32.Parse(Console.ReadLine());
-//    switch (myOptions)
-//    {
-//        case 1: NewOrder(); break;
-//        case 2: Quit(); break;
-//        default: Error(); break;
 //    }
-//    MenuDisplay();
-
-
-//}
-
-
-
-//void Quit ()
-//{
-//    Console.WriteLine("");
-//    Console.WriteLine();
-//    Console.WriteLine("ARE YOU SURE YOU WOULD LIKE TO EXIT? Y/N");
-//    ConsoleKeyInfo key = Console.ReadKey();
-//    switch (key.Key)
+//    private void SellItem1 ( string itemName, decimal icost )
 //    {
-//        case ConsoleKey.Y :  break;
-//        case ConsoleKey.N : Console.WriteLine("");  MenuDisplay(); break;
+//        Console.WriteLine($"Would you like to buy {itemName} for {icost:C2}? (y/n)");
+//        string response = Console.ReadLine().ToUpper();
+
+//        if (response.StartsWith("Y"))
+//        {
+//            _processorName = itemName;
+//            _processorPrice=icost;
+//            _orderTotal += icost;
+//            SellMemory("8GB", 30m, _orderTotal);
+
+//        } else if (response.StartsWith("N"))
+//        {
+//            SellItem2("AMD Ryzen 5 5600Xd", 1200m);
+//        } else
+//        {
+//            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+//            SellItem1(itemName, icost);
+
+//        }
 //    }
-//    Environment.Exit(0);
 
-//}
-
-//void NewOrder ()
-//{
-//    cartValue = 0;
-//    Console.WriteLine($"Cart: {cartValue}");
-//    Console.WriteLine("");
-//    Console.WriteLine("CHOOSE A PROCESSOR NUMBER");
-//    Console.WriteLine("");
-//    Console.WriteLine($"NUMBER 1. AMD Ryzen 9 5900X ---- $1410");
-//    Console.WriteLine($"NUMBER 2. AMD Ryzen 7 5700Xd ---- $1270");
-//    Console.WriteLine($"NUMBER 3. AMD Ryzen 5 5600Xd ---- $1200");
-//    Console.WriteLine($"NUMBER 4. Intel i9-12900K ----- $1590");
-//    Console.WriteLine($"NUMBER 5. Intel i7-12700K ---- $1400");
-//    Console.WriteLine($"NUMBER 6. Intel i5-12600K ---- $1280");
-//    int number = Int32.Parse(Console.ReadLine());
-//    switch (number)
+//    private void SellItem2 ( string itemName, decimal icost )
 //    {
-//        case 1: FirstProcessor(); break;
+//        Console.WriteLine($"Would you like to buy {itemName} for {icost:C2}? (y/n)");
+//        string response = Console.ReadLine().ToUpper();
+
+//        if (response.StartsWith("Y"))
+//        {
+//            _processorName = itemName;
+//            _processorPrice=icost;
+//            _orderTotal += icost;
+//            SellMemory("8GB", 30m, _orderTotal);
+
+//        } else if (response.StartsWith("N"))
+//        {
+//            SellItem3("Intel i9-12900K", 1590m);
+//        } else
+//        {
+//            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+//            SellItem2(itemName, icost);
+
+//        }
+//    }
+
+//    private void SellItem3 ( string itemName, decimal icost )
+//    {
+//        Console.WriteLine($"Would you like to buy {itemName} for {icost:C2}? (y/n)");
+//        string response = Console.ReadLine().ToUpper();
+
+//        if (response.StartsWith("Y"))
+//        {
+//            _processorName = itemName;
+//            _processorPrice=icost;
+//            _orderTotal += icost;
+//            SellMemory("8GB", 30m, _orderTotal);
+
+//        } else if (response.StartsWith("N"))
+//        {
+//            SellItem4("Intel i7-12700K", 1400m);
+//        } else
+//        {
+//            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+//            SellItem3(itemName, icost);
+
+//        }
+//    }
+//    private void SellItem4 ( string itemName, decimal icost )
+//    {
+//        Console.WriteLine($"Would you like to buy {itemName} for {icost:C2}? (y/n)");
+//        string response = Console.ReadLine().ToUpper();
+
+//        if (response.StartsWith("Y"))
+//        {
+//            _processorName = itemName;
+//            _processorPrice=icost;
+//            _orderTotal += icost;
+//            SellMemory("8GB", 30m, _orderTotal);
+
+//        } else if (response.StartsWith("N"))
+//        {
+//            SellItem5("Intel i5-12600K", 1280m);
+//        } else
+//        {
+//            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+//            SellItem4(itemName, icost);
+
+//        }
+//    }
+
+//    private void SellItem5 ( string itemName, decimal icost )
+//    {
+//        Console.WriteLine($"Would you like to buy {itemName} for {icost:C2}? (y/n)");
+//        string response = Console.ReadLine().ToUpper();
+//        try
+//        {
+//            if (response.StartsWith("Y"))
+//            {
+//                _processorName = itemName;
+//                _processorPrice=icost;
+//                _orderTotal += icost;
+//                SellMemory("8GB", 30m, _orderTotal);
+
+//            } else if (response.StartsWith("N"))
+//            {
+//                DisplayMenu();
+//            }
+//        } finally
+//        {
+//            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+//            SellItem5(itemName, icost);
+
+//        }
+//    }
+//    private void SellMemory ( string memoryName, decimal memoryCost, decimal cart )
+//    {
+//        _orderTotal= cart;
+//        Console.WriteLine($"Your current cart total is {_orderTotal:C2}");
+//        Console.WriteLine($"Would you like to buy {memoryName} for {memoryCost:C2}? (y/n)");
+//        string response = Console.ReadLine().ToUpper();
+
+//        if (response.StartsWith("Y"))
+//        {
+//            _memName= memoryName;
+//            _memPrice=memoryCost;
+//            cart += memoryCost;
+//            _orderTotal= cart;
+//            Console.WriteLine($"Your cart total is {_orderTotal:C2}");
+//            DisplayMenu();
+//        } else if (response.StartsWith("N"))
+//        {
+//            SellMemory2("16BG", 40, _orderTotal);
+//        } else
+//        {
+//            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+//            SellMemory(memoryName, memoryCost, cart);
+//        }
 
 //    }
 
-//}
+//    private void SellMemory2 ( string memoryName, decimal memoryCost, decimal cart )
+//    {
+//        _orderTotal= cart;
+//        Console.WriteLine($"Your current cart total is {_orderTotal:C2}");
+//        Console.WriteLine($"Would you like to buy {memoryName} for {memoryCost:C2}? (y/n)");
+//        string response = Console.ReadLine().ToUpper();
 
-//void FirstProcessor ()
-//{
-//    cartValue = 1410;
-//    Console.WriteLine($"CART: {cartValue}");
-//    Console.WriteLine("");
-//    Console.WriteLine("CHOOSE MEMORY SIZE");
-//    Console.WriteLine(pad);
-//    Console.WriteLine($"1. 8 GB --- $30 ");
-//    Console.WriteLine($"2. 16 GB ---- $40");
-//    Console.WriteLine($"3. 32 GB ---- $90");
-//    Console.WriteLine($"4. 64 GB ---- $410");
-//    Console.WriteLine($"5. 128 GB  ---- $600");
+//        if (response.StartsWith("Y"))
+//        {
+//            _memName= memoryName;
+//            _memPrice=memoryCost;
+//            cart += memoryCost;
+//            _orderTotal= cart;
+//            Console.WriteLine($"Your cart total is {_orderTotal:C2}");
+//            DisplayMenu();
+//        } else if (response.StartsWith("N"))
+//        {
+//            SellMemory3("32GB", 90, _orderTotal);
+//        } else
+//        {
+//            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+//            SellMemory2(memoryName, memoryCost, cart);
 
-//}
+//        }
 
-//void Error ()
-//{
-//    Console.Clear();
-//    Console.WriteLine("INVALID ENTRY. PLEASE TRY AGAIN: ");
-//    MenuDisplay();
+//    }
+
+//    private void SellMemory3 ( string memoryName, decimal memoryCost, decimal cart )
+//    {
+//        _orderTotal= cart;
+//        Console.WriteLine($"Your current cart total is {_orderTotal:C2}");
+//        Console.WriteLine($"Would you like to buy {memoryName} for {memoryCost:C2}? (y/n)");
+//        string response = Console.ReadLine().ToUpper();
+
+//        if (response.StartsWith("Y"))
+//        {
+//            _memName= memoryName;
+//            _memPrice=memoryCost;
+//            cart += memoryCost;
+//            _orderTotal= cart;
+//            Console.WriteLine($"Your cart total is {_orderTotal:C2}");
+//            DisplayMenu();
+//        } else if (response.StartsWith("N"))
+//        {
+//            SellMemory4("64GB", 410, _orderTotal);
+//        } else
+//        {
+//            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+//            SellMemory3(memoryName, memoryCost, cart);
+
+//        }
+//    }
+//    private void SellMemory4 ( string memoryName, decimal memoryCost, decimal cart )
+//    {
+//        _orderTotal= cart;
+//        Console.WriteLine($"Your current cart total is {_orderTotal:C2}");
+//        Console.WriteLine($"Would you like to buy {memoryName} for {memoryCost:C2}? (y/n)");
+//        string response = Console.ReadLine().ToUpper();
+
+//        if (response.StartsWith("Y"))
+//        {
+//            _memName= memoryName;
+//            _memPrice=memoryCost;
+//            cart += memoryCost;
+//            _orderTotal= cart;
+//            Console.WriteLine($"Your cart total is {_orderTotal:C2}");
+//            DisplayMenu();
+//        } else if (response.StartsWith("N"))
+//        {
+//            SellMemory5("128GB", 600, _orderTotal);
+//        } else
+//        {
+//            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+//            SellMemory4(memoryName, memoryCost, cart);
+
+//        }
+
+//    }
+//    private void SellMemory5 ( string memoryName, decimal memoryCost, decimal cart )
+//    {
+//        _orderTotal= cart;
+//        Console.WriteLine($"Your current cart total is {_orderTotal:C2}");
+//        Console.WriteLine($"Would you like to buy {memoryName} for {memoryCost:C2}? (y/n)");
+//        string response = Console.ReadLine().ToUpper();
+
+//        if (response.StartsWith("Y"))
+//        {
+//            _memName= memoryName;
+//            _memPrice=memoryCost;
+//            cart += memoryCost;
+//            _orderTotal= cart;
+//            Console.WriteLine($"Your cart total is {_orderTotal:C2}");
+//            DisplayMenu();
+//        } else if (response.StartsWith("N"))
+//        {
+//            DisplayMenu();
+//        } else
+//        {
+//            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+//            SellMemory5(memoryName, memoryCost, cart);
+
+//        }
+
+//    }
+//    private void DisplayOrderTotal ()
+//    {
+//        Console.WriteLine($"Your current order total is: {_orderTotal:C2}. ");
+//    }
+
+//    private void DisplayOutro ()
+//    {
+//        Console.WriteLine("Thanks for shopping!");
+//        Console.WriteLine("Press Enter key to exit");
+//        if (Console.ReadKey().Key != ConsoleKey.Enter)
+//        {
+//            Console.WriteLine();
+//            DisplayMenu();
+//        } else Environment.Exit(0);
+
+//    }
+
+//    private void ViewOrder ( string itemName, decimal icost, string memoryName, decimal memoryCost, decimal cart )
+//    {
+//        if (itemName == "")
+//        {
+//            Console.WriteLine($"There is no order yet.        Cart:{cart:C2}");
+//            DisplayMenu();
+//        } else
+//        {
+//            Console.WriteLine($"Processor: {itemName}    {icost:C2}");
+//            Console.WriteLine($"Memory: {memoryName}                      {memoryCost:C2}");
+//            Console.WriteLine("-------------------------------------------");
+//            Console.WriteLine($"Total:                   {cart:C2}");
+//        }
+//    }
+
+
+
+//    private void Error ()
+//    {
+
+//    }
 //}

@@ -2,10 +2,18 @@
 class Shop
 {
     private decimal _orderTotal;
+    private string _processorName;
+    private decimal _processorPrice;
+    private string _memName;
+    private decimal _memPrice;
 
     public Shop ()
     {
         _orderTotal = 0m;
+        _processorName="";
+        _processorPrice = 0m;
+        _memName="";
+        _memPrice = 0m;
     }
 
     public void Start ()
@@ -15,11 +23,12 @@ class Shop
     }
     private void Run ()
     {
-
+        Console.Clear();
         Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
+        Console.WriteLine("==========================");
+        BuyProcessor();
 
-        SellItem("AMD Ryzen 9 5900X", 1410m);
-        DisplayOutro();
+
     }
 
     private void DisplayInfo ()
@@ -32,9 +41,17 @@ class Shop
 
     private void DisplayMenu ()
     {
+
+
         Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
         Console.WriteLine("Option 1. New Order");
-        Console.WriteLine("Option 2. Quit");
+        Console.WriteLine("Option 2. View Order");
+        Console.WriteLine("Option 3. Clear Order");
+        Console.WriteLine("Option 4. Quit");
+
+
+
+
 
         try
         {
@@ -44,7 +61,9 @@ class Shop
             switch (myOptions)
             {
                 case 1: Run(); break;
-                case 2: DisplayOutro(); break;
+                case 2: ViewOrder(_processorName, _processorPrice, _memName, _memPrice, _orderTotal); break;
+                case 3: ClearOrder(_processorName, _processorPrice, _memName, _memPrice, _orderTotal); break;
+                case 4: DisplayOutro(); break;
                 default: Error(); break;
             }
         } catch (FormatException)
@@ -53,277 +72,62 @@ class Shop
             DisplayMenu();
         }
     }
-    private void SellItem ( string itemName, decimal icost )
-    {
-        Console.WriteLine($"Would you like to buy {itemName} for {icost:C2}? (y/n)");
 
-        string response = Console.ReadLine().ToUpper();
+    private void BuyProcessor ()
+    {
+        Console.Clear();
+        Console.WriteLine("Press 1----- To buy the AMD Ryzen 9 5900X Processor for $1410.00");
+        Console.WriteLine("Press 2----- To buy the AMD Ryzen 7 5700X Processor for $1270.00");
+        Console.WriteLine("Press 3----- To buy the AMD Ryzen 5 5600X Processor for $1200.00");
+        Console.WriteLine("Press 4----- To buy the Intel i9-12900K Processor for $1590.00");
+        Console.WriteLine("Press 5----- To buy the Intel i7-12700K Processor for $1400.00");
+        Console.WriteLine("Press 6----- To buy the Intel i5-12600K Processor for $1280.00");
+        int response = Int32.Parse(Console.ReadLine());
         try
         {
-            if (response.StartsWith("Y"))
+            switch (response)
             {
-
-                _orderTotal += icost;
-                SellMemory("8GB", 30m, _orderTotal);
-
-            } else if (response.StartsWith("N"))
-            {
-                SellItem1("AMD Ryzen 7 5700Xd", 1270m);
+                case 1: _processorName="AMD Ryzen 9 5900X"; _processorPrice=1410; _orderTotal=1410; BuyMemory(); break;
+                case 2: _processorName="AMD Ryzen 7 5700X"; _processorPrice=1270; _orderTotal=1270; BuyMemory(); break;
+                case 3: _processorName="AMD Ryzen 5 5600X"; _processorPrice=1200; _orderTotal=1200; BuyMemory(); break;
+                case 4: _processorName="Intel i9-12900K"; _processorPrice=1590; _orderTotal = 1590; BuyMemory(); break;
+                case 5: _processorName="Intel i7-12700K"; _processorPrice=1400; _orderTotal=1400; BuyMemory(); break;
+                case 6: _processorName="Intel i5-12600K"; _processorPrice=1200; _orderTotal=1200; BuyMemory(); break;
+                default: Error(); break;
             }
-        } finally
+        } catch (FormatException)
         {
-            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
-            SellItem(itemName, icost);
 
-        }
-    }
-    private void SellItem1 ( string itemName, decimal icost )
-    {
-        Console.WriteLine($"Would you like to buy {itemName} for {icost:C2}? (y/n)");
-        string response = Console.ReadLine().ToUpper();
-        try
-        {
-            if (response.StartsWith("Y"))
-            {
-
-                _orderTotal += icost;
-                SellMemory("8GB", 30m, _orderTotal);
-
-            } else if (response.StartsWith("N"))
-            {
-                SellItem2("AMD Ryzen 5 5600Xd", 1200m);
-            }
-        } finally
-        {
-            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
-            SellItem1(itemName, icost);
-
+            Error();
         }
     }
 
-    private void SellItem2 ( string itemName, decimal icost )
+    private void BuyMemory ()
     {
-        Console.WriteLine($"Would you like to buy {itemName} for {icost:C2}? (y/n)");
-        string response = Console.ReadLine().ToUpper();
-        try
+        Console.Clear();
+        Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
+        Console.WriteLine("Press 1----- To buy 8 GB of memory for $30");
+        Console.WriteLine("Press 2----- To buy 16 GB of memory for $40");
+        Console.WriteLine("Press 3----- To buy 32 GB of memory for $90");
+        Console.WriteLine("Press 4----- To buy 64 GB for memory $410");
+        Console.WriteLine("Press 5----- To buy 128 GB of memory for $600");
+        int response = Int32.Parse(Console.ReadLine());
+        if (response <= 5)
         {
-            if (response.StartsWith("Y"))
+            switch (response)
             {
+                case 1: _memName="8 GB"; _memPrice=30; _orderTotal= _memPrice + _processorPrice; DisplayMenu(); break;
+                case 2: _memName="16 GB"; _memPrice=40; _orderTotal=_memPrice + _processorPrice; DisplayMenu(); break;
+                case 3: _memName="32 GB"; _memPrice=90; _orderTotal=_memPrice + _processorPrice; DisplayMenu(); break;
+                case 4: _memName="64 GB"; _memPrice=410; _orderTotal = _memPrice + _processorPrice; DisplayMenu(); break;
+                case 5: _memName="128 GB"; _memPrice=600; _orderTotal=_memPrice + _processorPrice; DisplayMenu(); break;
 
-                _orderTotal += icost;
-                SellMemory("8GB", 30m, _orderTotal);
-
-            } else if (response.StartsWith("N"))
-            {
-                SellItem3("Intel i9-12900K", 1590m);
             }
-        } finally
+        } else
         {
-            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
-            SellItem2(itemName, icost);
 
+            Error();
         }
-    }
-
-    private void SellItem3 ( string itemName, decimal icost )
-    {
-        Console.WriteLine($"Would you like to buy {itemName} for {icost:C2}? (y/n)");
-        string response = Console.ReadLine().ToUpper();
-        try
-        {
-            if (response.StartsWith("Y"))
-            {
-
-                _orderTotal += icost;
-                SellMemory("8GB", 30m, _orderTotal);
-
-            } else if (response.StartsWith("N"))
-            {
-                SellItem4("Intel i7-12700K", 1400m);
-            }
-        } finally
-        {
-            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
-            SellItem3(itemName, icost);
-
-        }
-    }
-    private void SellItem4 ( string itemName, decimal icost )
-    {
-        Console.WriteLine($"Would you like to buy {itemName} for {icost:C2}? (y/n)");
-        string response = Console.ReadLine().ToUpper();
-        try
-        {
-            if (response.StartsWith("Y"))
-            {
-
-                _orderTotal += icost;
-                SellMemory("8GB", 30m, _orderTotal);
-
-            } else if (response.StartsWith("N"))
-            {
-                SellItem5("Intel i5-12600K", 1280m);
-            }
-        } finally
-        {
-            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
-            SellItem4(itemName, icost);
-
-        }
-    }
-
-    private void SellItem5 ( string itemName, decimal icost )
-    {
-        Console.WriteLine($"Would you like to buy {itemName} for {icost:C2}? (y/n)");
-        string response = Console.ReadLine().ToUpper();
-        try
-        {
-            if (response.StartsWith("Y"))
-            {
-
-                _orderTotal += icost;
-                SellMemory("8GB", 30m, _orderTotal);
-
-            } else if (response.StartsWith("N"))
-            {
-                DisplayMenu();
-            }
-        } finally
-        {
-            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
-            SellItem5(itemName, icost);
-
-        }
-    }
-    private void SellMemory ( string memoryName, decimal memoryCost, decimal cart )
-    {
-        _orderTotal= cart;
-        Console.WriteLine($"Your current cart total is {_orderTotal:C2}");
-        Console.WriteLine($"Would you like to buy {memoryName} for {memoryCost:C2}? (y/n)");
-        string response = Console.ReadLine().ToUpper();
-        try
-        {
-            if (response.StartsWith("Y"))
-            {
-                cart += memoryCost;
-                _orderTotal= cart;
-                Console.WriteLine($"Your cart total is {_orderTotal:C2}");
-                DisplayMenu();
-            } else if (response.StartsWith("N"))
-            {
-                SellMemory2("16BG", 40, _orderTotal);
-            }
-        } finally
-        {
-            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
-            SellMemory(memoryName, memoryCost, cart);
-        }
-
-    }
-
-    private void SellMemory2 ( string memoryName, decimal memoryCost, decimal cart )
-    {
-        _orderTotal= cart;
-        Console.WriteLine($"Your current cart total is {_orderTotal:C2}");
-        Console.WriteLine($"Would you like to buy {memoryName} for {memoryCost:C2}? (y/n)");
-        string response = Console.ReadLine().ToUpper();
-        try
-        {
-            if (response.StartsWith("Y"))
-            {
-                cart += memoryCost;
-                _orderTotal= cart;
-                Console.WriteLine($"Your cart total is {_orderTotal:C2}");
-                DisplayMenu();
-            } else if (response.StartsWith("N"))
-            {
-                SellMemory3("32GB", 90, _orderTotal);
-            }
-        } finally
-        {
-            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
-            SellMemory2(memoryName, memoryCost, cart);
-
-        }
-
-    }
-
-    private void SellMemory3 ( string memoryName, decimal memoryCost, decimal cart )
-    {
-        _orderTotal= cart;
-        Console.WriteLine($"Your current cart total is {_orderTotal:C2}");
-        Console.WriteLine($"Would you like to buy {memoryName} for {memoryCost:C2}? (y/n)");
-        string response = Console.ReadLine().ToUpper();
-        try
-        {
-            if (response.StartsWith("Y"))
-            {
-                cart += memoryCost;
-                _orderTotal= cart;
-                Console.WriteLine($"Your cart total is {_orderTotal:C2}");
-                DisplayMenu();
-            } else if (response.StartsWith("N"))
-            {
-                SellMemory4("64GB", 410, _orderTotal);
-            }
-        } finally
-        {
-            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
-            SellMemory3(memoryName, memoryCost, cart);
-
-        }
-    }
-    private void SellMemory4 ( string memoryName, decimal memoryCost, decimal cart )
-    {
-        _orderTotal= cart;
-        Console.WriteLine($"Your current cart total is {_orderTotal:C2}");
-        Console.WriteLine($"Would you like to buy {memoryName} for {memoryCost:C2}? (y/n)");
-        string response = Console.ReadLine().ToUpper();
-        try
-        {
-            if (response.StartsWith("Y"))
-            {
-                cart += memoryCost;
-                _orderTotal= cart;
-                Console.WriteLine($"Your cart total is {_orderTotal:C2}");
-                DisplayMenu();
-            } else if (response.StartsWith("N"))
-            {
-                SellMemory5("128GB", 600, _orderTotal);
-            }
-        } finally
-        {
-            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
-            SellMemory4(memoryName, memoryCost, cart);
-
-        }
-
-    }
-    private void SellMemory5 ( string memoryName, decimal memoryCost, decimal cart )
-    {
-        _orderTotal= cart;
-        Console.WriteLine($"Your current cart total is {_orderTotal:C2}");
-        Console.WriteLine($"Would you like to buy {memoryName} for {memoryCost:C2}? (y/n)");
-        string response = Console.ReadLine().ToUpper();
-        try
-        {
-            if (response.StartsWith("Y"))
-            {
-                cart += memoryCost;
-                _orderTotal= cart;
-                Console.WriteLine($"Your cart total is {_orderTotal:C2}");
-                DisplayMenu();
-            } else if (response.StartsWith("N"))
-            {
-                DisplayMenu();
-            }
-        } finally
-        {
-            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
-            SellMemory5(memoryName, memoryCost, cart);
-
-        }
-
     }
     private void DisplayOrderTotal ()
     {
@@ -332,6 +136,7 @@ class Shop
 
     private void DisplayOutro ()
     {
+        Console.Clear();
         Console.WriteLine("Thanks for shopping!");
         Console.WriteLine("Press Enter key to exit");
         if (Console.ReadKey().Key != ConsoleKey.Enter)
@@ -342,8 +147,83 @@ class Shop
 
     }
 
+    private void ViewOrder ( string itemName, decimal icost, string memoryName, decimal memoryCost, decimal cart )
+    {
+        Console.Clear();
+        if (itemName == "")
+        {
+            Console.WriteLine($"There is no order yet.        Cart:{cart:C2}");
+            DisplayMenu();
+        } else
+        {
+            Console.WriteLine($"Processor: {itemName}    {icost:C2}");
+            Console.WriteLine($"Memory: {memoryName}                      {memoryCost:C2}");
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine($"Total:                   {cart:C2}");
+        }
+        Console.WriteLine("To return to menu press the M key");
+        if (Console.ReadKey().Key != ConsoleKey.M)
+        {
+            Console.WriteLine("Incorrect input automatic redirection.");
+            DisplayMenu();
+        } else DisplayMenu();
+
+    }
+
+    private void ClearOrder ( string itemName, decimal icost, string memoryName, decimal memoryCost, decimal cart )
+    {
+        Console.Clear();
+        Console.WriteLine("Are you sure you would like to clear your order.  (Y/N)");
+        string response = Console.ReadLine().ToUpper();
+
+        if (response.StartsWith("Y"))
+        {
+            _memName="";
+            _memPrice=0;
+            _orderTotal=0;
+            _processorName="";
+            _processorPrice=0;
+            DisplayMenu();
+        } else if (response.StartsWith("N"))
+        {
+            DisplayMenu();
+        } else
+        {
+            Console.WriteLine("INCORRECT INPUT...PLEASE TRY AGAIN");
+            ClearOrder(itemName, icost, memoryName, memoryCost, cart);
+
+        }
+
+
+    }
+
+    private void ModifyOrder ( string itemName, decimal icost, string memoryName, decimal memoryCost, decimal cart )
+    {
+        Console.Clear();
+        if (itemName == "")
+        {
+            Console.WriteLine($"There is no order yet.        Cart:{cart:C2}");
+            DisplayMenu();
+        }
+        else
+        {
+            Console.WriteLine("Here are your current componets");
+            Console.WriteLine("========================");
+            Console.WriteLine($"{itemName} for {icost}");
+            Console.WriteLine($"{memoryName} for {memoryCost}");
+            return;
+        }
+
+
+    }
+
+
+
     private void Error ()
     {
-
+        Console.Clear();
+        _orderTotal = 0;
+        Console.WriteLine("Youv have entered an incorrect input, restarting order");
+        DisplayMenu();
     }
 }
