@@ -42,8 +42,9 @@ class Shop
     private void Run ()
     {
         Console.Clear();
-        if(_operatingName != "")
+        if (_operatingName != "")
         {
+            Console.Clear ();
             Console.WriteLine($"You have ordered a {_processorName:C2} for {_processorPrice:C2} \n You have ordered a {_memName:C2} for {_memPrice:C2}\n You have ordered a {_primaryStorage} for {_primaryStoragePrice:C2}\nYou have ordered a {_secondaryStorage} for {_secondaryStoragePrice:C2}\nYou have ordered a {_graphicsName} for {_graphicsPrice:C2}\nYou have ordered {_operatingName} for {_operatingPrice:C2} ");
             DisplayMenu();
         }
@@ -68,6 +69,9 @@ class Shop
         Console.WriteLine("=====================================");
         Console.WriteLine();
         Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
+        Console.WriteLine("----------------------------");
+        Console.WriteLine("Enter the corresponding number with a presented option ");
+        Console.WriteLine();
         Console.WriteLine("Option 1. New Order");
         Console.WriteLine("Option 2. View Order");
         Console.WriteLine("Option 3. Clear Order");
@@ -86,8 +90,8 @@ class Shop
             switch (myOptions)
             {
                 case 1: Run(); break;
-                case 2: ViewOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage ,_primaryStoragePrice,_secondaryStorage,_secondaryStoragePrice,_graphicsName,_graphicsPrice,       _operatingName, _operatingPrice, _orderTotal); break;
-                case 3: ClearOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice,  _operatingName, _operatingPrice, _orderTotal); break;
+                case 2: ViewOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
+                case 3: ClearOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
                 case 4: ModifyOrder(_processorName, _processorPrice, _memName, _memPrice, _primaryStorage, _primaryStoragePrice, _secondaryStorage, _secondaryStoragePrice, _graphicsName, _graphicsPrice, _operatingName, _operatingPrice, _orderTotal); break;
                 case 5: DisplayOutro(); break;
                 default: Error(); break;
@@ -111,8 +115,11 @@ class Shop
         Console.WriteLine("Press 5) To buy the Intel i7-12700K Processor for $1400.00");
         Console.WriteLine("Press 6) To buy the Intel i5-12600K Processor for $1280.00");
         int response = Int32.Parse(Console.ReadLine());
+
         try
         {
+            
+
             switch (response)
             {
                 case 1: _processorName="AMD Ryzen 9 5900X"; _processorPrice=1410; _orderTotal=1410; BuyMemory(); break;
@@ -121,13 +128,15 @@ class Shop
                 case 4: _processorName="Intel i9-12900K"; _processorPrice=1590; _orderTotal = 1590; BuyMemory(); break;
                 case 5: _processorName="Intel i7-12700K"; _processorPrice=1400; _orderTotal=1400; BuyMemory(); break;
                 case 6: _processorName="Intel i5-12600K"; _processorPrice=1200; _orderTotal=1200; BuyMemory(); break;
-                default: Error(); break;
+                default: BuyProcessor(); break;
             }
-        } catch (FormatException)
+        } catch (Exception ex)
         {
-
             Error();
         }
+
+            
+        
     }
 
     private void BuyMemory ()
@@ -375,10 +384,10 @@ class Shop
         Console.Clear();
         Console.WriteLine($"Your current cart total is: {_orderTotal:C2}");
         Console.WriteLine();
-        Console.WriteLine("There is no order to modify");
+        
         if (itemName == "")
         {
-            
+            Console.WriteLine("There is no order to modify");
             DisplayMenu();
         } else
         {
@@ -619,5 +628,35 @@ class Shop
         _orderTotal = 0;
         Console.WriteLine("Youv have entered an incorrect input, restarting order");
         DisplayMenu();
+    }
+
+    private void PurchaseError ( string itemName,  string memoryName, string processorTitle,  string secondaryStorageTitle,  string graphicsTitle,  string operatorTitle  )
+    {
+        if ( itemName == "")
+        {
+            BuyProcessor();
+        }
+        else if ( memoryName == "")
+        {
+            BuyMemory();
+        }
+        else if(processorTitle == "")
+        {
+            BuyPrimaryStorage();
+
+        }
+        else if(secondaryStorageTitle == "")
+        {
+            BuySecondaryStorage();
+        }
+        else if(graphicsTitle == "")
+        {
+            BuyGraphics();
+        }
+        else if(operatorTitle == "")
+        {
+            BuyOperating();
+        }
+
     }
 }
