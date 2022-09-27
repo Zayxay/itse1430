@@ -193,6 +193,7 @@ Movie AddMovie ()
     
     movie.IsClassic = ReadBoolean("is this a classic? ");
 
+    
     return movie;
 }
 
@@ -248,6 +249,7 @@ void ViewMovie (Movie movie)
     Console.WriteLine($"Ratied {movie.Rating}");
     Console.WriteLine($" Is Classic: {(movie.IsClassic ? "Yes" : "No")}");
     Console.WriteLine(movie.Description);
-
+    var blackAndWhite = movie.IsBlackAndWhite;
+    //movie.IsBlackAndWhite = true;
 }
 

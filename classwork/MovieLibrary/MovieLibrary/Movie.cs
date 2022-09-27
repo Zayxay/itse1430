@@ -6,6 +6,10 @@
     /// </summary>
     public class Movie
     {
+        public int Id { get; private set; } = 1900;
+        /// <summary>
+        /// gets or sets the title.
+        /// </summary>
         public string Title
         {
             //atring get_Title()
@@ -34,18 +38,19 @@
             set { _description = String.IsNullOrEmpty(value) ? "" : value.Trim(); }
         }
         private string _description ;
-        public int RunLength
-        {
-            get { return _runLength; }
-            set { _runLength = value; }
-        }
-        private int _runLength = 0; //In minutes
+        /// <summary>
+        /// Gets or Sets the run length in minutes.
+        /// </summary>
+        //public int RunLength
+        //{
+        //    get { return _runLength; }
+        //    set { _runLength = value; }
+        //}
+        public int RunLength{ get;  set; }
+       // private int _runLength = 0; //In minutes
         public int ReleaseYear
-        {
-            get { return _releaseYear; }
-            set { _releaseYear = value; }
-        }
-        private int _releaseYear = 1900;
+        {get; set; }
+        //private int _releaseYear = 1900;
 
         public string Rating
         {
@@ -53,16 +58,14 @@
             set { _rating =  String.IsNullOrEmpty(value) ? "" : value.Trim(); }
         }
         private string _rating;
-        public bool IsClassic
-        {
-            get { return _isClassic; }
-            set { _isClassic = value; }
-        }
-        private bool _isClassic = false;
+        public bool IsClassic { get; set; }
+        
+        
 
-        public bool IsBlackAndWhite ()
+        public bool IsBlackAndWhite 
         {
-            return _releaseYear < 1939;
+            get { return ReleaseYear < 1939; }
+          //  set { }
         }
         /// <summary>
         /// Clones the existing movie
@@ -81,12 +84,12 @@
         public void CopyTo ( Movie movie )
         {
             //var areEqual = _title == this._title;
-            movie._title = _title;
-            movie._description = _description;
-            movie._runLength = _runLength;
-            movie._releaseYear = _releaseYear;
-            movie._rating = _rating;
-            movie._isClassic = _isClassic;
+            movie.Title = Title;
+            movie.Description = Description;
+            movie.RunLength = RunLength;
+            movie.ReleaseYear = ReleaseYear;
+            movie.Rating = Rating;
+            movie.IsClassic = IsClassic;
         }
 
     }
