@@ -179,16 +179,19 @@ Movie AddMovie ()
     Movie movie = new Movie ();
     //string title
     //movie.title = ReadString("Enter a title: ", true);
-    movie.SetTitle(ReadString("Enter a title: ", true));
-    movie._description=ReadString("Enter a optional description: ", false);
+    //movie.SetTitle(ReadString("Enter a title: ", true));
+    movie.Title = ReadString("Enter a title: ", true);
+
+
+    movie.Description=ReadString("Enter a optional description: ", false);
     
-    movie._runLength = ReadInt32("Enter a run length (in minutes): ", 0, 300);
+    movie.RunLength = ReadInt32("Enter a run length (in minutes): ", 0, 300);
     
-    movie._releaseYear = ReadInt32("Enter the release year: ", 1900, 2100);
+    movie.ReleaseYear = ReadInt32("Enter the release year: ", 1900, 2100);
     
-    movie._rating = ReadString("Enter MPAA rating: ", true);
+    movie.Rating = ReadString("Enter MPAA rating: ", true);
     
-    movie._isClassic = ReadBoolean("is this a classic? ");
+    movie.IsClassic = ReadBoolean("is this a classic? ");
 
     return movie;
 }
@@ -209,7 +212,7 @@ void DeleteMovie ()
     if (selectedMovie==null)
         return;
     //Not cconfirmed
-    if (!ReadBoolean($"Are you sure you want to delete the movie '{selectedMovie.GetTitle()}' (Y/N)? "))
+    if (!ReadBoolean($"Are you sure you want to delete the movie '{selectedMovie.Title}' (Y/N)? "))
         return;
     //TODO: Delete Movie
     movie=null ;
@@ -225,7 +228,7 @@ void ViewMovie (Movie movie)
         return;
     }
 
-    Console.WriteLine($"{movie.GetTitle} ({movie._releaseYear})");
+    Console.WriteLine($"{movie.Title} ({movie.ReleaseYear})");
     //String formating concatination
     //Opton 1 - Concatination
     //Console.WriteLine("Length:" + runLength + "mins");
@@ -234,17 +237,17 @@ void ViewMovie (Movie movie)
     //option 2 -String.Format
     //Console.WriteLine("Length:" + runLength + "mins");
     //Console.WriteLine(String.Format("Length: {0} mins", runLength));
-    Console.WriteLine("Length: {0} mins", movie._runLength);
+    Console.WriteLine("Length: {0} mins", movie.RunLength);
 
     //Optio 3 - String Interpulation
-    Console.WriteLine($"Length: {movie._runLength} mins");
+    Console.WriteLine($"Length: {movie.RunLength} mins");
     //Console.WriteLine(releaseYear);
     //ToString
-    Console.WriteLine(movie._releaseYear.ToString());
+    Console.WriteLine(movie.ReleaseYear.ToString());
     //Console.WriteLine("Length:" + runLength + "mins");
-    Console.WriteLine($"Ratied {movie._rating}");
-    Console.WriteLine($" Is Classic: {(movie._isClassic ? "Yes" : "No")}");
-    Console.WriteLine(movie._description);
+    Console.WriteLine($"Ratied {movie.Rating}");
+    Console.WriteLine($" Is Classic: {(movie.IsClassic ? "Yes" : "No")}");
+    Console.WriteLine(movie.Description);
 
 }
 

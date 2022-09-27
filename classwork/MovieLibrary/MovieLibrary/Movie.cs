@@ -1,27 +1,64 @@
 ﻿namespace MovieLibrary
 {
-     //Represents a movie
-     /// <summary>
-     /// Represents a movie
-     /// </summary>
+    //Represents a movie
+    /// <summary>
+    /// Represents a movie
+    /// </summary>
     public class Movie
     {
-      private string _title = "";
-        public string GetTitle ()
+        public string Title
         {
-            return _title;
+            //atring get_Title()
+            get
+            {
+                return String.IsNullOrEmpty(_title) ? "" : _title;
+
+            }
+            set { _title =  String.IsNullOrEmpty(value) ? "" : value.Trim(); }
         }
-     
-        public void SetTitle ( string title )
+        private string _title ;
+        //public string GetTitle ()
+        //{
+        //    return _title;
+        //}
+
+        //public void SetTitle ( string title )
+        //{
+        //    //this.title = title;
+        //    _title=title;
+        //}
+
+        public string Description
         {
-            //this.title = title;
-            _title=title;
+            get { return String.IsNullOrEmpty(_description) ? "" : _description; }
+            set { _description = String.IsNullOrEmpty(value) ? "" : value.Trim(); }
         }
-        public  string _description = "";
-      public  int _runLength = 0; //In minutes
-      public  int _releaseYear = 1900;
-      public  string _rating = "";
-      public  bool _isClassic = false;
+        private string _description ;
+        public int RunLength
+        {
+            get { return _runLength; }
+            set { _runLength = value; }
+        }
+        private int _runLength = 0; //In minutes
+        public int ReleaseYear
+        {
+            get { return _releaseYear; }
+            set { _releaseYear = value; }
+        }
+        private int _releaseYear = 1900;
+
+        public string Rating
+        {
+            get { return String.IsNullOrEmpty(_rating) ? "" : _rating; }
+            set { _rating =  String.IsNullOrEmpty(value) ? "" : value.Trim(); }
+        }
+        private string _rating;
+        public bool IsClassic
+        {
+            get { return _isClassic; }
+            set { _isClassic = value; }
+        }
+        private bool _isClassic = false;
 
         public bool IsBlackAndWhite ()
         {
@@ -33,17 +70,17 @@
         /// <returns>Copy of the movie</returns>
         public Movie Clone ()
         {
-            var movie = new Movie ();   
-            CopyTo (movie);
+            var movie = new Movie();
+            CopyTo(movie);
             return movie;
         }
         /// <summary>
         /// Copy the movie to another instance
         /// </summary>
         /// <param name="movie"> Movie to copy into</param>
-        public void CopyTo (Movie movie )
+        public void CopyTo ( Movie movie )
         {
-            var areEqual = _title == this._title;
+            //var areEqual = _title == this._title;
             movie._title = _title;
             movie._description = _description;
             movie._runLength = _runLength;
@@ -51,6 +88,6 @@
             movie._rating = _rating;
             movie._isClassic = _isClassic;
         }
-        
+
     }
 }
