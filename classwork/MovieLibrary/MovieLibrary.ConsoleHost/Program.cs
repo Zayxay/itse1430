@@ -29,6 +29,7 @@ using MovieLibrary;
 
 DisplayInformation();
 Movie movie = null;
+MovieDatabase database = new MovieDatabase();
 bool done = false;
 do
 {
@@ -176,7 +177,7 @@ string ReadString ( string message, bool required )
 
 Movie AddMovie ()
 {
-    Movie movie = new Movie ();
+    Movie movie = new Movie ("Title");
     //string title
     //movie.title = ReadString("Enter a title: ", true);
     //movie.SetTitle(ReadString("Enter a title: ", true));
@@ -188,6 +189,11 @@ Movie AddMovie ()
     movie.RunLength = ReadInt32("Enter a run length (in minutes): ", 0, 300);
     
     movie.ReleaseYear = ReadInt32("Enter the release year: ", 1900, 2100);
+
+    if (movie.ReleaseYear >= Movie.YearColorWasIntroduced)
+        Console.WriteLine("Old movie");
+
+    //var emptyMovie = Movie.Empty;
     
     movie.Rating = ReadString("Enter MPAA rating: ", true);
     
@@ -199,6 +205,7 @@ Movie AddMovie ()
 
 Movie GetSelectedMovie ()
 {
+    var item = database.Get(0);
     return movie;
 }
 void EditMovie ()

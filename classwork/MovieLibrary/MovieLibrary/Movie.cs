@@ -6,7 +6,22 @@
     /// </summary>
     public class Movie
     {
-        public int Id { get; private set; } = 1900;
+        public Movie (string title)
+        {
+            Title=title;
+        }
+
+        public Movie (string title): this(title, "")
+        {
+
+        }
+
+        public Movie(string title, string description )
+        {
+            Title= title;
+            Description = description;
+        }
+        public int Id { get; private set; } = 1900; 
         /// <summary>
         /// gets or sets the title.
         /// </summary>
@@ -64,9 +79,16 @@
 
         public bool IsBlackAndWhite 
         {
-            get { return ReleaseYear < 1939; }
+            get { return ReleaseYear < YearColorWasIntroduced; }
           //  set { }
         }
+
+        //public fields are allowed with constants
+        public const int YearColorWasIntroduced = 1939;
+        //public readonly Movie Empty = new Movie();
+
+        //private Movie EmptyMovie { get; } = new Movie();
+        //private readonly Movie _emptymovie= NewMovie();
         /// <summary>
         /// Clones the existing movie
         /// </summary>
@@ -90,6 +112,10 @@
             movie.ReleaseYear = ReleaseYear;
             movie.Rating = Rating;
             movie.IsClassic = IsClassic;
+        }
+        public override string ToString ()
+        {
+            return Title;
         }
 
     }

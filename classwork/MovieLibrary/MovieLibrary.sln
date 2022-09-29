@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary.ConsoleHost", "MovieLibrary.ConsoleHost\MovieLibrary.ConsoleHost.csproj", "{7A8E3775-B35F-40ED-873C-E33CA02DCB0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary", "MovieLibrary\MovieLibrary.csproj", "{2BBBF4D7-0673-40AC-B5DB-2FB619F8C35A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary", "MovieLibrary\MovieLibrary.csproj", "{2BBBF4D7-0673-40AC-B5DB-2FB619F8C35A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
